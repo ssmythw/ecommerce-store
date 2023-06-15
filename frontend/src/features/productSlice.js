@@ -23,8 +23,17 @@ const productSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [productsFetch.pending]
-  }
+    [productsFetch.pending]: (state) => {
+      state.status = "pending";
+    },
+    [productsFetch.fulfilled]: (state, action) => {
+      state.status = "success";
+      state.items = action.payload;
+    },
+    [productsFetch.rejected]: (state, action) => {
+      state.status = "rejected";
+    },
+  },
 });
 
 export default productSlice.reducer;

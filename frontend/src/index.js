@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import productReducer from "./features/productSlice";
+import productReducer, { productsFetch } from "./features/productSlice";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const store = configureStore({
@@ -11,6 +11,9 @@ const store = configureStore({
     productReducer,
   },
 });
+
+store.dispatch(productsFetch);
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>
