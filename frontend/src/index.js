@@ -5,7 +5,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import productReducer from "./features/productSlice";
 import { productAPI } from "./features/productsAPI";
-import cartReducer from "./features/cartSlice";
+import cartReducer, { getTotal } from "./features/cartSlice";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const store = configureStore({
@@ -18,6 +18,8 @@ const store = configureStore({
     return getDefaultMiddleware().concat(productAPI.middleware);
   },
 });
+
+store.dispatch(getTotal());
 
 root.render(
   <React.StrictMode>
