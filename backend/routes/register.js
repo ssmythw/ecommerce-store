@@ -29,3 +29,5 @@ router.post("/", async (req, res) => {
   const token = genAuthToken(user);
   res.send(token);
 });
+
+module.exports = router;
