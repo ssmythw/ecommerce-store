@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import productReducer from "./features/productSlice";
 import { productAPI } from "./features/productsAPI";
 import cartReducer, { getTotal } from "./features/cartSlice";
+import authReducer from "./features/authSlice";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const store = configureStore({
@@ -13,6 +14,7 @@ const store = configureStore({
     products: productReducer,
     [productAPI.reducerPath]: productAPI.reducer,
     cart: cartReducer,
+    auth: authReducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(productAPI.middleware);
