@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { url } from "./api";
+import jwtDecode from "jwt-decode";
 
 const initialState = {
   token: localStorage.getItem("token"),
@@ -37,9 +38,31 @@ const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(registerUser.pending, (state, action) => {});
-    builder.addCase(registerUser.fulfilled, (state, action) => {});
-    builder.addCase(registerUser.rejected, (state, action) => {});
+    builder.addCase(registerUser.pending, (state, action) => {
+      return { ...state, registerStatus: "pending" };
+    });
+    builder.addCase(registerUser.fulfilled, (state, action) => {
+      if (action.payload) {
+        const user = jwtDecode(action.payload);
+        return {
+          ...state,
+          token: action.payload,
+          name: user.name,
+          email: user.email,
+          _id: user._id,
+          registerStatus: "Success",
+        };
+      } else {
+        return state;
+      }
+    });
+    builder.addCase(registerUser.rejected, (state, action) => {
+      return {
+        ...state,
+        registerStatus: "rejected",
+        registerError: action.payload,
+      };
+    });
   },
 });
 

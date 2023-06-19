@@ -7,6 +7,7 @@ import NavBar from "./components/NavBar";
 import Cart from "./components/Cart";
 import Home from "./components/Home";
 import NotFound from "./components/NotFound";
+import Register from "./components/auth/Register";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/cart" element={<Cart />} />
+          <Route path="/register" element={<Register />} />
           <Route path="not-found" element={<NotFound />} />
           <Route path="/" exact element={<Home />} />
           <Route path="*" element={<Navigate to="/not-found" replace />} />
